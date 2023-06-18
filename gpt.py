@@ -1,5 +1,4 @@
 import openai
-import re
 import os
 import pandas as pd
 from openai.cli import display
@@ -19,31 +18,8 @@ openai.api_key = os.environ.get("gpt_token")
 openai.api_base = os.environ.get("gpt_endpoint")
 openai.api_version = "2023-03-15-preview"
 
-# Place input csv file
-df = pd.read_csv(os.path.join(os.getcwd(), os.environ.get("file_name")), encoding='utf8')
-
-df_answer = df[['idx', 'content']]
-
-# https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html
-# #evaluation-order-matters
-pd.options.mode.chained_assignment = None
-
-
-# normalize input
-# s is input text
-def normalize_text(s, sep_token=" \n "):
-    s = re.sub(r'\s+', ' ', s).strip()
-    s = re.sub(r". ,", "", s)
-    # remove all instances of multiple spaces
-    s = s.replace("..", ".")
-    s = s.replace(". .", ".")
-    s = s.replace("\n", "")
-    s = s.strip()
-
-    return s
-
-
-df_answer = pd.read_csv(os.path.join(os.getcwd(), os.environ.get("file_name")), encoding='utf8')
+df_answer = pd.read_csv(os.path.join(os.getcwd(), os.environ.get("file_name")),
+                        encoding='utf8')
 df_answer["ada_v2"] = df_answer["ada_v2"].apply(lambda x: literal_eval(x))
 
 

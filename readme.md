@@ -11,13 +11,17 @@
 > - Login to Azure Portal -> Azure Open AI -> Create Project -> Get Token
 > - Create token for translator
 > - Create file .env from .env.example
-> - Set gpt_token and translate_key like sample file
+> - Set gpt_token, translate_key and file_name that you want
 
 ###### 4, Get Dependencies
 
 > pip3 install -r requirements.txt
 
-###### 5, Run app
+###### 5, If you do not have embedding file, please run script:
+
+> py generate.py data.csv
+
+###### 6, Run app
 
 > flask run
 
